@@ -105,6 +105,27 @@
             background: #a0aec0;
             cursor: not-allowed;
         }
+
+        #micbtn {
+            margin-left: 8px;
+            padding: 10px 14px;
+            border-radius: 50%;
+            border: none;
+            background: #48bb78;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        #micbtn.listening {
+            background: #e53e3e;
+        }
+
+        #micbtn:hover {
+            background: #38a169;
+        }
+
     </style>
 </head>
 
@@ -116,8 +137,10 @@
 
         <div id="input-area">
             <input type="text" id="inputbox" placeholder="Type your message..." />
+            <button id="micbtn" title="Speak">🎤</button>
             <button id="sendbtn">Send</button>
         </div>
+
     </div>
 
     <script src="{{ url_for('static', filename='main.js') }}"></script>

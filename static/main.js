@@ -30,3 +30,40 @@ inputBox.addEventListener("keydown", function(event) {
         sendBtn.click();
     }
 });
+
+
+const micBtn = document.getElementById("micbtn");
+
+const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (SpeechRecognition) {
+    const recognition = new SpeechRecognition();
+    recognition.lang = "en-US";
+    recognition.interimResults = false;
+    recognition.continuous = false;
+
+    micBtn.onclick = () => {
+        recognition.start();
+        micBtn.classList.add("listening");
+    };
+
+    recognition.onresult = (event) => {
+        const spokenText = event.results[0][0].transcript;
+        inputBox.value = spokenText;
+        micBtn.classList.remove("listening");
+        sendBtn.click(); // auto-send
+    };
+
+    recognition.onerror = () => {
+        micBtn.classList.remove("listening");
+        alert("Microphone access denied or not supported.");
+    };
+
+    recognition.onend = () => {
+        micBtn.classList.remove("listening");
+    };
+} else {
+    micBtn.disabled = true;
+    micBtn.title = "Speech recognition not supported";
+}
